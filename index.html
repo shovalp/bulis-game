@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>מבצע גיוס: נבחרת החלומות של אורי 🎖️</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;800;900&family=Secular+One&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --army-dark: #223322;
+            --army-olive: #4a6842;
+            --army-sage: #8da985;
+            --army-sage-light: #eaf1e9;
+            --army-gold: #d4af37;
+            --army-gold-bright: #eec12e;
+            --army-khaki: #ffffff;
+            --reject-red: #d32f2f;
+            --accept-green: #2e7d32;
+            --card-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Rubik', sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: linear-gradient(135deg, #eaf2e8 0%, #f7f9f6 50%, #f4eee1 100%);
+            margin: 0;
+            padding: 12px 10px;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #222;
+            overflow-x: hidden;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 440px;
+            position: relative;
+        }
+
+        .army-header {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .badge-title {
+            display: inline-block;
+            background: linear-gradient(135deg, #4a6842 0%, #324a2c 100%);
+            color: #fff;
+            font-weight: 800;
+            padding: 5px 16px;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(74, 104, 66, 0.25);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        h1.main-title {
+            font-family: 'Secular One', sans-serif;
+            font-size: 1.75rem;
+            margin: 0;
+            color: #2d4029;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .screen {
+            display: none;
+            animation: fadeIn 0.35s ease-in-out forwards;
+            width: 100%;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .welcome-card {
+            background: #ffffff;
+            border: 3px solid var(--army-sage);
+            border-radius: 28px;
+            padding: 22px 18px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+        }
+
+        .ori-photo-wrapper {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 14px;
+            border-radius: 50%;
+            border: 4px solid var(--army-gold);
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            background: #eaf1e9;
+            position: relative;
+        }
+
+        .ori-photo-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .ori-photo-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            font-size: 3.5rem;
+        }
+
+        .welcome-title {
+            font-size: 1.5rem;
+            color: #2a3d27;
+            margin-bottom: 8px;
+            font-weight: 800;
+        }
+
+        .welcome-desc {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #444;
+            margin-bottom: 20px;
+            background: var(--army-sage-light);
+            padding: 12px 14px;
+            border-radius: 16px;
+            border-right: 5px solid var(--army-olive);
+            text-align: right;
+        }
+
+        /* Touch-optimized button for mobile */
+        .start-btn {
+            background: linear-gradient(135deg, var(--army-olive) 0%, #314a2b 100%);
+            color: #ffffff;
+            font-size: 1.25rem;
+            font-weight: 900;
+            border: none;
+            padding: 16px 28px;
+            border-radius: 50px;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 6px 20px rgba(50, 74, 44, 0.3);
+            transition: transform 0.15s, box-shadow 0.15s;
+            touch-action: manipulation;
+            display: block;
+            outline: none;
+        }
+
+        .start-btn:active {
+            transform: scale(0.97);
+            box-shadow: 0 3px 10px rgba(50, 74, 44, 0.3);
+        }
+
+        .card {
+            background: #ffffff;
+            color: #222;
+            border-radius: 26px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            border: 2px solid #dce8db;
+            position: relative;
+        }
+
+        .card-img-container {
+            width: 100%;
+            height: 330px;
+            max-height: 42vh;
+            position: relative;
+            background: #eef3ed;
+        }
+
+        .card-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+        }
+
+        .card-overlay-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(255, 255, 255, 0.94);
+            color: var(--army-olive);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 800;
+            border: 1px solid var(--army-sage);
+            backdrop-filter: blur(6px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .card-content {
+            padding: 16px 18px 18px;
+        }
+
+        .candidate-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 10px;
+            border-bottom: 2px dashed #e2eae0;
+            padding-bottom: 6px;
+        }
+
+        .candidate-name {
+            font-size: 1.45rem;
+            font-weight: 900;
+            color: #1e2d1c;
+        }
+
+        .candidate-age {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--army-olive);
+            background: var(--army-sage-light);
+            padding: 2px 8px;
+            border-radius: 12px;
+        }
+
+        .info-row {
+            margin-bottom: 6px;
+            font-size: 0.92rem;
+            line-height: 1.35;
+        }
+
+        .info-label {
+            font-weight: 800;
+            color: #2d4029;
+        }
+
+        .info-val {
+            color: #333;
+        }
+
+        .quote-box {
+            background: linear-gradient(135deg, #fffbee 0%, #fef5d8 100%);
+            padding: 12px 16px;
+            border-radius: 16px;
+            border: 2px solid var(--army-gold-bright);
+            margin-top: 10px;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(238, 193, 46, 0.18);
+        }
+
+        .quote-header {
+            font-size: 0.78rem;
+            font-weight: 800;
+            color: #8a6a0d;
+            margin-bottom: 3px;
+        }
+
+        .quote-text {
+            font-size: 1.08rem;
+            font-weight: 800;
+            color: #3a2e0a;
+            line-height: 1.4;
+            text-align: right;
+            font-style: italic;
+        }
+
+        .actions-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 14px;
+        }
+
+        .btn-action {
+            flex: 1;
+            padding: 15px 10px;
+            border: none;
+            border-radius: 20px;
+            font-size: 1.15rem;
+            font-weight: 900;
+            cursor: pointer;
+            transition: transform 0.12s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+            touch-action: manipulation;
+            outline: none;
+        }
+
+        .btn-reject {
+            background: linear-gradient(135deg, #ef5350 0%, #c62828 100%);
+            color: white;
+        }
+
+        .btn-accept {
+            background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+            color: white;
+            border: 2px solid #81c784;
+        }
+
+        .btn-action:active {
+            transform: scale(0.94);
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            background: #dce7da;
+            height: 8px;
+            border-radius: 10px;
+            margin-top: 12px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--army-olive), var(--army-gold));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #4f684c;
+            margin-top: 5px;
+        }
+
+        .results-card {
+            background: #ffffff;
+            border: 3px solid var(--army-gold);
+            border-radius: 26px;
+            padding: 20px 16px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .results-title {
+            text-align: center;
+            color: #2b4229;
+            font-size: 1.6rem;
+            font-weight: 900;
+            margin-top: 0;
+            margin-bottom: 4px;
+        }
+
+        .results-subtitle {
+            text-align: center;
+            color: #555;
+            font-size: 0.9rem;
+            margin-bottom: 14px;
+            line-height: 1.35;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 2px;
+        }
+
+        .team-card {
+            background: var(--army-sage-light);
+            border: 2px solid var(--army-sage);
+            border-radius: 16px;
+            padding: 8px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+        }
+
+        .team-card img {
+            width: 100%;
+            height: 115px;
+            object-fit: cover;
+            object-position: center top;
+            border-radius: 10px;
+            margin-bottom: 6px;
+        }
+
+        .team-card-name {
+            font-weight: 900;
+            font-size: 0.92rem;
+            color: #1e2d1c;
+        }
+
+        .team-card-role {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--army-olive);
+            margin-top: 2px;
+        }
+
+        .restart-btn {
+            background: linear-gradient(135deg, var(--army-olive) 0%, #2f4528 100%);
+            border: none;
+            color: #ffffff;
+            width: 100%;
+            padding: 14px;
+            border-radius: 50px;
+            font-weight: 900;
+            margin-top: 16px;
+            cursor: pointer;
+            font-size: 1.05rem;
+            box-shadow: 0 4px 14px rgba(47, 69, 40, 0.3);
+            touch-action: manipulation;
+        }
+
+        #confettiCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="confettiCanvas"></canvas>
+
+    <div class="app-container">
+        <!-- Header Badge -->
+        <div class="army-header">
+            <div class="badge-title">🎖️ צה"ל - פלוגת מילואים 404</div>
+            <h1 class="main-title">נבחרת המ"פ אורי</h1>
+        </div>
+
+        <!-- 1. WELCOME SCREEN -->
+        <div id="welcomeScreen" class="screen active">
+            <div class="welcome-card">
+                <div class="ori-photo-wrapper">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80" id="oriImg" alt="אורי המ&quot;פ" onerror="this.style.display='none'; document.getElementById('oriPlaceholder').style.display='flex';">
+                    <div class="ori-photo-placeholder" id="oriPlaceholder" style="display:none;">🫡</div>
+                </div>
+                
+                <div class="welcome-title">המ"פ אורי מסדרת את הפלוגה!</div>
+                
+                <div class="welcome-desc">
+                    <strong>המשימה שלך:</strong> עשרות מילואימניקים חדשים רוצים להתנדב לפלוגה שלך. 
+                    לכל מועמד יש עבר מפוקפק, מוטו לחיים וסיבה למה הוא רוצה אותך כמפקדת.
+                    <br><br>
+                    עברי על הפרופילים והחליטי: <strong>גיוס לקרבי</strong> או <strong>פטור לאלתר!</strong>
+                </div>
+
+                <button class="start-btn" id="startBtn">🚀 מתחילים בגיוס!</button>
+            </div>
+        </div>
+
+        <!-- 2. GAME SCREEN -->
+        <div id="gameScreen" class="screen">
+            <div class="card" id="currentCard">
+                <div class="card-img-container">
+                    <img id="cImg" src="" alt="תמונת מועמד">
+                    <div class="card-overlay-badge" id="cRole"></div>
+                </div>
+                
+                <div class="card-content">
+                    <div class="candidate-header">
+                        <span class="candidate-name" id="cName"></span>
+                        <span class="candidate-age" id="cAge"></span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">💼 באזרחות:</span> 
+                        <span class="info-val" id="cJob"></span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">🎯 למה דווקא לפלוגה של אורי?</span> 
+                        <span class="info-val" id="cWhy"></span>
+                    </div>
+
+                    <div class="quote-box">
+                        <div class="quote-header">📜 המוטו לחיים:</div>
+                        <div class="quote-text" id="cMotto"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions-row">
+                <button class="btn-action btn-reject" id="rejectBtn">❌ פטור!</button>
+                <button class="btn-action btn-accept" id="acceptBtn">🫡 גיוס!</button>
+            </div>
+
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">מועמד 1 מתוך 14</div>
+        </div>
+
+        <!-- 3. RESULTS SCREEN -->
+        <div id="resultsScreen" class="screen">
+            <div class="results-card">
+                <h2 class="results-title">🎖️ נבחרת החלומות של אורי!</h2>
+                <div class="results-subtitle" id="resultsSummary">הנה הלוחמים שנבחרו להוביל את הפלוגה:</div>
+
+                <div class="team-grid" id="teamGrid"></div>
+
+                <button class="restart-btn" id="restartBtn">🔄 התחל גיוס מחדש</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const candidates = [
+            {
+                name: "יוני 'הייטק' ברונשטיין",
+                age: "32",
+                role: "ג'ובניק מוצהר",
+                job: "ארכיטקט ענן ברמת החייל",
+                motto: "\"אני מגיע רק אם יש שקע ללפטופ בחמ\"ל וקפה מגולען.\"",
+                why: "שמעתי שאצל אורי יש פריסה של 5G מושלמת בשטח.",
+                image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                name: "שמעון 'הכריש' אלבז",
+                age: "29",
+                role: "מאכער פלוגתי",
+                job: "בעל מגרש מכוניות באשדוד (אפסנאי לשעבר)",
+                motto: "\"אין דבר כזה 'אין', יש 'כמה זה עולה'.\"",
+                why: "צריכה 100 פק\"לים ואלפא רומיאו לנגמ\"ש? שעה אצלך.",
+                image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                name: "עבדאללה 'עבודי' חאג'",
+                age: "31",
+                role: "מתנדב מורעל",
+                job: "סגן מנהל סניף בסופר-פארם",
+                motto: "\"אני מביא את הציוד הרפואי האמיתי, לא היוד של הצבא.\"",
+                why: "רוצה להראות לכולם איך מנהלים פלוגה כמו בית מרקחת.",
+                image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                name: "שרגא פרידמן",
+                age: "27",
+                role: "יוצא ישיבה קשוח",
+                job: "מדריך סיורים בסמטאות ירושלים",
+                motto: "\"אם עברתי את ישיבת פוניבז', חמאס זה כסף קטן.\"",
+                why: "חייב מפקדת קשוחה שתשמור עליי ממשמעת צבאית.",
+                image: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                name: "ניר 'נשימות' גולדשטיין",
+                age: "28",
+                role: "לוחם תדרים",
+                job: "מורה ליוגה ומטפל בצלילים מפרדס חנה",
+                motto: "\"אני לא יורה, אני משחרר אנרגיה שלילית לכיוון האויב.\"",
+                why: "המפה האסטרולוגית אמרה לי שאורי פותחת לי את הצ'אקרה.",
+                image: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                name: "יורי 'הסרבל' קובלנקו",
+                age: "34",
+                role: "מאגסיט עצבני",
+                job: "מאמן קרוספיט ובונה פרגולות",
+                motto: "\"בלי חפירות. תני לי מאג ואני מפרק את המטרות.\"",
+                why: "שמעתי שאצל אורי לא מבזבזים זמן על שיחות מוטיבציה.",
+                image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                name: "ג'וני 'קליפורניה' לוי",
+                age: "26",
+                role: "חייל בודד משוחרר",
+                job: "מורה לגלישה בחוף גורדון",
+                motto: "\"Dude, everything is chill, let's do some pushups.\"",
+                why: "Ori is like, the most legend Commander in IDF bro!",
+                image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                name: "מתן 'הטבעוני' שפירא",
+                age: "25",
+                role: "פילוסוף צבא",
+                job: "סטודנט לפילוסופיה באונ' תל אביב",
+                motto: "\"האם השמירה באמת קיימת אם אף אחד לא ראה אותי?\"",
+                why: "מגיע בתנאי שיש מנות קרב טבעוניות ללא גלוטן.",
+                image: "https://images.unsplash.com/photo-1463453091185-61582044d556?auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                name: "רפי 'הקבלן' אזרזר",
+                age: "42",
+                role: "ותיק הקרבות",
+                job: "קבלן שיפוצים וקדיחות",
+                motto: "\"אני אולי קצת מבוגר, אבל הבאגר שלי מחליף גדוד.\"",
+                why: "באתי להראות לצעירים איך מנהלים עבודה בשטח.",
+                image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                name: "אלון 'ההיפסטר' כהן",
+                age: "30",
+                role: "בריסטה קרבי",
+                job: "בעל בית קפה גל-שני בשוק לוינסקי",
+                motto: "\"אני בא רק אם מותר לבשל קפה בסטימר בנגמ\"ש.\"",
+                why: "שמעתי שאצל אורי השחרור בבוקר כולל אספרסו קצר.",
+                image: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                name: "ברוך 'הכושר' צנגאווקר",
+                age: "24",
+                role: "ספורטאי מצטיין",
+                job: "מאמן כושר אישי VIP",
+                motto: "\"עוד 50 שקילוט ויוצאים לאכול טונה.\"",
+                why: "שמעתי שהפלוגה של אורי צריכה קצת להרים את הקצב.",
+                image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                name: "דניאל 'הקיבוצניק' שמיר",
+                age: "31",
+                role: "רכז ענף",
+                job: "מנהל הרפת בקיבוץ בעמק",
+                motto: "\"לקום ב-4 בבוקר לשמירה? בשבילי זו שנת צהריים.\"",
+                why: "חיפשתי מקום קצת יותר שקט מהפרות ברפת.",
+                image: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                name: "אסי 'הברמן' אוחנה",
+                age: "27",
+                role: "מורל פלוגתי",
+                job: "מיקסולוג בבר נחשב בתל אביב",
+                motto: "\"אין משימה שאי אפשר להפוך לקוקטייל מנצח.\"",
+                why: "אני אחראי על השמח והפינאלה של האימון הפלוגתי.",
+                image: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                name: "ד\"ר יונתן 'המוח' רוזנבלום",
+                age: "35",
+                role: "גאון תורן",
+                job: "חוקר פיזיקה גרעינית בטכניון",
+                motto: "\"לפי החישוב שלי, הסיכוי שננצח הוא 99.8%.\"",
+                why: "רוצה להתנדב כנהג ההאמר האישי של המ\"פ.",
+                image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=500&q=80"
+            }
+        ];
+
+        let currentIndex = 0;
+        const selectedTeam = [];
+        let audioCtx = null;
+
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        // Initialize audio on user interaction to fix iOS restrictions
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function startGame() {
+            initAudio();
+            currentIndex = 0;
+            selectedTeam.length = 0;
+            showScreen('gameScreen');
+            renderCandidate();
+        }
+
+        function renderCandidate() {
+            if (currentIndex >= candidates.length) {
+                finishGame();
+                return;
+            }
+
+            const c = candidates[currentIndex];
+            document.getElementById('cImg').src = c.image;
+            document.getElementById('cName').innerText = c.name;
+            document.getElementById('cAge').innerText = c.age;
+            document.getElementById('cRole').innerText = c.role;
+            document.getElementById('cJob').innerText = c.job;
+            document.getElementById('cWhy').innerText = c.why;
+            document.getElementById('cMotto').innerText = c.motto;
+
+            const progressPct = ((currentIndex + 1) / candidates.length) * 100;
+            document.getElementById('progressFill').style.width = `${progressPct}%`;
+            document.getElementById('progressText').innerText = `מועמד ${currentIndex + 1} מתוך ${candidates.length}`;
+        }
+
+        function handleDecision(isAccepted) {
+            playClickSound(isAccepted);
+            
+            if (isAccepted) {
+                selectedTeam.push(candidates[currentIndex]);
+            }
+
+            currentIndex++;
+            renderCandidate();
+        }
+
+        function finishGame() {
+            showScreen('resultsScreen');
+            const grid = document.getElementById('teamGrid');
+            const summary = document.getElementById('resultsSummary');
+            grid.innerHTML = '';
+
+            if (selectedTeam.length === 0) {
+                summary.innerText = "אורי נתנה פטור לכולם! הפלוגה נשארה ריקה 😅";
+            } else {
+                summary.innerText = `גייסת ${selectedTeam.length} לוחמים מתוך ${candidates.length}! הנה הראויים ביותר:`;
+                selectedTeam.forEach(member => {
+                    const card = document.createElement('div');
+                    card.className = 'team-card';
+                    card.innerHTML = `
+                        <img src="${member.image}" alt="${member.name}">
+                        <div class="team-card-name">${member.name}</div>
+                        <div class="team-card-role">${member.role}</div>
+                    `;
+                    grid.appendChild(card);
+                });
+            }
+
+            launchConfetti();
+        }
+
+        function restartGame() {
+            showScreen('welcomeScreen');
+        }
+
+        function playClickSound(isAccepted) {
+            try {
+                initAudio();
+                if (!audioCtx) return;
+
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                if (isAccepted) {
+                    osc.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5
+                    osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.15); // A5
+                } else {
+                    osc.frequency.setValueAtTime(220, audioCtx.currentTime); // A3
+                    osc.frequency.exponentialRampToValueAtTime(110, audioCtx.currentTime + 0.15); // A2
+                }
+
+                gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.15);
+            } catch(e) {
+                console.log("Audio play error:", e);
+            }
+        }
+
+        function launchConfetti() {
+            const canvas = document.getElementById('confettiCanvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const particles = [];
+            const colors = ['#d4af37', '#3b4e32', '#ffffff', '#e2c044', '#556b2f'];
+
+            for (let i = 0; i < 90; i++) {
+                particles.push({
+                    x: canvas.width / 2,
+                    y: canvas.height / 2,
+                    vx: (Math.random() - 0.5) * 12,
+                    vy: (Math.random() - 0.8) * 14,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    size: Math.random() * 8 + 4,
+                    rotation: Math.random() * 360
+                });
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                let alive = false;
+
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.vy += 0.3;
+                    p.rotation += 5;
+
+                    if (p.y < canvas.height) alive = true;
+
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate(p.rotation * Math.PI / 180);
+                    ctx.fillStyle = p.color;
+                    ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+                    ctx.restore();
+                });
+
+                if (alive) requestAnimationFrame(animate);
+            }
+
+            animate();
+        }
+
+        function bindButton(id, callback) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            
+            let handled = false;
+            
+            const trigger = (e) => {
+                e.preventDefault();
+                if (handled) return;
+                handled = true;
+                setTimeout(() => { handled = false; }, 300);
+                callback();
+            };
+
+            el.addEventListener('touchend', trigger, { passive: false });
+            el.addEventListener('click', trigger);
+        }
+
+        window.onload = function() {
+            bindButton('startBtn', startGame);
+            bindButton('acceptBtn', () => handleDecision(true));
+            bindButton('rejectBtn', () => handleDecision(false));
+            bindButton('restartBtn', restartGame);
+        };
+    </script>
+</body>
+</html>
